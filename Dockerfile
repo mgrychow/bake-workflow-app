@@ -1,5 +1,10 @@
 # Use the official Python image from the Docker Hub
 FROM python:3.9-slim
+# Set the PING_RESPONSE build argument
+ARG PING_RESPONSE="pong"
+
+# Set the PING_RESPONSE environment variable from the build argument
+ENV PING_RESPONSE=${PING_RESPONSE}
 
 # Set the working directory in the container
 WORKDIR /app

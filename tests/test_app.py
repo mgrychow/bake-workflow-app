@@ -18,5 +18,6 @@ def client():
 
 def test_ping(client):
     response = client.get('/ping')
-    assert response.data == b"pong\n"
+    expected = os.getenv('PING_RESPONSE', 'pong\n')
+    assert response.data.decode('utf-8') == expected
     assert response.status_code == 200

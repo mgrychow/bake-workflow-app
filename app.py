@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 def get_app():
@@ -5,7 +6,7 @@ def get_app():
 
     @app.route('/ping')
     def ping():
-        return "pong\n"
+        return os.getenv('PING_RESPONSE', 'pong\n')
 
     return app
 

@@ -25,6 +25,10 @@ This Python application is designed to experiment on automating docker bake proc
     ```
     docker build -t bake-workflow-app .
     ```
+    Build with customized response
+    ```
+    docker build --build-arg PING_RESPONSE="hello" -t bake-workflow-app . 
+    ```
 2. Run 
     ```
     docker run -p 5000:5000 -d --name app bake-workflow-app
