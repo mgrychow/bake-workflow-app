@@ -2,7 +2,7 @@
 
 This Python application is designed to experiment on automating docker bake process with Github Actions
 
-# Usage
+# Running the app
 
 ## Native
 
@@ -42,9 +42,28 @@ This Python application is designed to experiment on automating docker bake proc
     docker stop app
     ```
 
-## Query
+# Query
     ```
     curl http://localhost:5000/ping
+    ```
+
+# Testing
+
+## Native
+    ```
+    cd tests
+    pytest
+    ```
+
+## Contenerized
+
+1. Build test container
+    ```
+    docker build -t bake-workflow-app-test -f tests.Dockerfile .
+    ```
+2. Run
+    ```
+    docker run bake-workflow-app-test
     ```
 
 ## Contributing
