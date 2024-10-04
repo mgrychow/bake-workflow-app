@@ -35,11 +35,16 @@ This Python application is designed to experiment on automating docker bake proc
     ```
 2. Run 
     ```
-    docker run -p 5000:5000 -d --name app bake-workflow-app
+    docker run -p 5000:5000 -d --name app --rm bake-workflow-app
     ```
 3. Stop
     ```
     docker stop app
+    ```
+
+## Script
+    ```
+    ./build.sh
     ```
 
 # Query
