@@ -1,0 +1,45 @@
+name: build images
+
+on:
+  workflow_dispatch:
+    inputs:
+      gist_url:
+        description: 'URL of the Gist containing docker-bake-override.hcl'
+        required: true
+        default: 'https://gist.githubusercontent.com/username/gist-id/raw/docker-bake-override.hcl'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download file from GitHub Gist
+      run: curl -o docker-bake-override.hcl ${{ github.event.inputs.gist_url }}
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and test
+      run: ./build.sh
+
+    - name: Save Docker image to tar file
+      run: docker save -o bake-workflow-app.tar bake-workflow-app:latest
+
+    - name: Print info
+      run: |
+        docker images
+        pwd
+        echo "GitHub workspace: ${{ github.workspace }}"
+        ls -l
+        ls -l ..
+        ls -l ${{ github.workspace }}
+        ls -l ${{ github.workspace }}/..
+
+    - name: Save Docker image as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-image
+        path: bake-workflow-app.tar
