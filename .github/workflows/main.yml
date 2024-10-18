@@ -17,13 +17,21 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Download file from GitHub Gist
-      run: curl -o docker-bake-override.hcl ${{ github.event.inputs.gist_url }}
+      run: |
+        filename=$(basename ${{ github.event.inputs.gist_url }})
+        curl -o $filename ${{ github.event.inputs.gist_url }}
+        echo "filename=$filename" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
     - name: Build and test
-      run: ./build.sh
+      run: |
+        valid_filenames=("docker-bake.hcl" "docker-bake-override.hcl")
+        if [[ ! " ${valid_filenames[@]} " =~ " $filename " ]]; then
+          ./build.sh $filename
+        else ./build.sh
+        fi
 
     - name: Save Docker image to tar file
       run: docker save -o bake-workflow-app.tar bake-workflow-app:latest
