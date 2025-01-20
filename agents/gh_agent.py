@@ -82,7 +82,7 @@ def summarize_logs_with_ai(logs):
             cancellation_token=CancellationToken(),
         )
         print(response.inner_messages)
-        print(response.chat_message)
+        print(response.chat_message.content)
 
     asyncio.run(assistant_run())
 
