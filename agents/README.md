@@ -14,7 +14,15 @@ This subfolder contains script that uses AI Chat assistant to check specific wor
     pip install -r requirements.txt
     ```
 3. Fill .env file with github token and openAi api token
+4. Run python server
+    ```sh
+    python -m http.server
+    ```
 4. Run the application:
     ```sh
     python gh_agent.py
+    ```
+    or 
+    ```sh
+    python ci_analyzer.py
     ```
